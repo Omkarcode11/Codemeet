@@ -12,9 +12,17 @@
     "start": "nodemon dist/index.js"
   },
   "dependencies": {
+    "@prisma/client": "^7.4.2",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "pg": "^8.19.0",
+    "prisma": "^7.4.2",
+    "socket.io": "^4.8.3",
     "yargs": "^18.0.0"
   },
   "devDependencies": {
+    "@types/express": "^5.0.6",
     "@types/node": "^25.3.3",
     "@types/yargs": "^17.0.35",
     "nodemon": "^3.1.14",
