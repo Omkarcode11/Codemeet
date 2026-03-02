@@ -9,7 +9,7 @@ import authRoutes from "./routes/authRoutes";
 import dotenv from "dotenv";
 
 dotenv.config();
-const app = express();
+export const app = express();
 
 // Request logging middleware
 const stream = {
@@ -26,7 +26,6 @@ app.use(cookieParser());
 app.use(
   cors({
     origin: ["http://localhost:3000", "http://localhost:3001"], // Adjust to your client URL
-    credentials: true,
   }),
 );
 
@@ -39,6 +38,10 @@ app.get("/health", (req, res) => {
 // Global Error Handler (Must be LAST)
 app.use(errorHandler);
 
-app.listen(3000, () => {
-  logger.info("Server is running on port 3000");
+// Import server AFTER app is defined and exported to avoid circular dependency
+import { server } from "./socket";
+
+// Listen on port 3005 for both API and Signaling
+server.listen(3005, () => {
+  logger.info("Server and Signaling server running on 3005");
 });

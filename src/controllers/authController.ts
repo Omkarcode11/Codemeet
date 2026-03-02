@@ -7,6 +7,7 @@ const createSendToken = (
   user: any,
   token: string,
   statusCode: number,
+  public_ip: string,
   res: Response,
 ) => {
   const cookieOptions = {
@@ -20,6 +21,7 @@ const createSendToken = (
   };
 
   res.cookie("token", token, cookieOptions);
+  res.cookie("public_ip", public_ip, cookieOptions);
 
   res.status(statusCode).json({
     status: "success",
@@ -40,7 +42,7 @@ export const signup = catchAsync(
 
     const { user, token } = await AuthService.signup({ name, email, password });
 
-    createSendToken(user, token, 201, res);
+    createSendToken(user, token, 201, req.ip || "", res);
   },
 );
 
@@ -54,7 +56,7 @@ export const login = catchAsync(
 
     const { user, token } = await AuthService.login({ email, password });
 
-    createSendToken(user, token, 200, res);
+    createSendToken(user, token, 200, req.ip || "", res);
   },
 );
 
